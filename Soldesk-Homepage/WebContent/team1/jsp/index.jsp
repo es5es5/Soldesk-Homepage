@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>국가기간전략산업직종훈련-SOLDESK</title>
 <link rel="icon" href="img/s1.png" />
 <link rel="stylesheet" href="css/jquery.bxslider.css">
 <link rel="stylesheet" href="css/index.css">

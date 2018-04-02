@@ -7,16 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table border="1" id="siteContentArea"> 
+	<table id="siteContentArea"> 
 		<tr> 
-			<td align="center" colspan="3">
+			<td align="center">
 				<ul id="mainSlider">
-				</ul>  
+				</ul>   
 			</td> 
 		</tr> 
 		<tr>
 			<td align="center">
-				<table border="1" class="gasiTbl">
+				<table class="gasiTbl">
 					<tr>
 						<td class="gasiTd"><a href=""><img class="gasiImg"
 								src="img/Mcontent1.jpg"></a></td>
@@ -26,11 +26,17 @@
 								src="img/Mcontent3.jpg"></a></td>
 					</tr>
 				</table>			
-			</td> 
-		</tr>
+			</td>   
+		</tr> 
 		<tr>
 			<td class="gasiTdColor" align="center"> 
-				<table border="1" class="gasiTbl">  
+				<table>
+					<tr>
+					<td align="center" colspan="4"><img src="img/hotnew.png"> </td>
+					</tr>
+				</table>  
+				
+				<table class="gasiTbl">  
 					<tr>
 						<td class="gasiTd2"><a href=""><img class="gasiImg"
 								src="img/Mcontent4.jpg"></a></td>
@@ -43,7 +49,7 @@
 					</tr>
 				</table>  
 				<br>
-				<table border="1" class="gasiTbl"> 
+				<table class="gasiTbl"> 
 					<tr>
 						<td class="gasiTd2"><a href=""><img class="gasiImg"
 								src="img/Mcontent4.jpg"></a></td>

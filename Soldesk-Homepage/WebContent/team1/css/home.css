@@ -7,16 +7,16 @@
 	padding: 0px;  
 }
 .gasiTbl {  
-	width: 90%; 
+	width: 70%; 
 }
 .gasiTd {
 	width: 33%;  
 	height: 200px;
-	margin: 0px;   
+	margin: 0px;    
 	padding: 10px; 
-}  
-.gasiTdColor{ 
-	background-color: silver; 
+}    
+.gasiTdColor{  
+ 	background-image: url("../img/background.png" );
 }
 .gasiTd2 { 
 	width: 25%;
@@ -31,8 +31,8 @@
 #mainSlider {
 	margin: 0px;  
 	z-index: 0;
+}
+.sliderImg{ 
 	width: 100%;
 	height: 100%;
-	margin-left: auto;
-	margin-right: auto;
 }
