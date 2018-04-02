@@ -1,0 +1,58 @@
+@charset "EUC-KR";
+.e{
+	display:none;
+	width:900px;
+}
+
+.eTitle{
+	color:#455A64;
+}
+.eSubTitle{
+	font-size:13pt;
+	font-weight:700;
+	color:#607D8B;
+}
+.eContent{
+	border-top:#455A64 solid 1px;
+	padding-top:10px;
+	font-size: 11pt;
+	padding-bottom: 30px;
+}
+#eTable{
+	width:880px;
+	border-top:#607D8B solid 2px;
+	border-right:#607D8B solid 2px;
+}
+
+.eTd1{
+	background-color: #607D8B;
+	color:white;
+	font-weight: 700;
+	height: 50px;
+	width: 90px;
+	border-bottom:white solid 1.5px;
+}
+
+.eTd2{
+	padding-left: 10px;
+	border-bottom: #607D8B solid 1.5px;
+}
+#eWarning{
+	color:red;
+	font-weight: 900;
+	font-size: 11pt;
+}
+.eFAQ{
+	width: 90%;
+	border:#607D8B solid 2px;
+	margin-bottom: 20px;
+}
+.eFAQ tr td{
+	padding: 10px;
+}
+.eFAQF{
+	font-weight: 700;
+	background-color: #607D8B;
+	color:white;
+	padding: 10px;
+}

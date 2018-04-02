@@ -1,0 +1,159 @@
+@charset "EUC-KR";
+
+a {
+	text-decoration: none;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+table {
+	border-spacing: 0px;
+}
+
+#siteTitleArea {
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	z-index: 1000;
+	background-color: white;
+}
+
+#siteTitle {
+	width: 1080px;
+}
+
+#siteLogo {
+	width: 70px;
+}
+
+#siteTitleArea2 {
+	background-color: #455A64;
+	color: white;
+	font-size: 10pt;
+	font-weight: 800;
+	height: 28px;
+	width: 100%;
+}
+
+#siteTitle2 {
+	width: 1080px;
+}
+
+#siteMenuArea {
+	width: 100%;
+}
+
+#siteMainMenuArea {
+	width: 1080px;
+}
+
+.siteMenu {
+	font-size: 10pt;
+	font-weight: 700;
+	height: 35px;
+	width: 130px;
+	padding-bottom: 5px;
+}
+
+.siteMenu a {
+	color: #455A64;
+}
+
+.siteMenu a:hover {
+	color: red;
+}
+
+#siteSubMenuArea {
+	width: 1080px;
+	display: none;
+	font-weight: 600;
+	background-color: white;
+	box-shadow: 7px 7px 7px black;
+}
+
+.siteSubMenu {
+	width: 130px;
+	padding: 0px;
+	margin: 0px;
+	height: 255px;
+}
+
+.siteSubMenu table tr td {
+	height: 25px;
+	padding-left: 3px;
+}
+
+.siteSubMenu table tr td a {
+	color: black;
+	font-size: 8pt;
+}
+
+.siteSubMenu table tr td a:hover {
+	color: red;
+}
+
+#siteContentArea {
+	margin-top: 145px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1080px; 
+	padding: 0px;  
+}
+
+.gasiTbl {
+	width: 90%;
+	border-spacing: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.gasiTd {
+	width: 33%;
+	height: 200px;
+	margin: 0px;
+	padding: 0px;
+}
+
+.gasiTd2 {
+	width: 25%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.gasiImg {
+	width: 100%;
+	height: 100%;
+}
+
+.selectedMenu {
+	background-color: #ECEFF1; 
+}
+
+
+
+.sliderImg {
+	width: 1080px;
+}
+
+#siteSubMenu2Area { 
+	position: fixed;
+	top: 145px;
+	background-color: white;
+}
+
+#siteSubMenu2Title {
+	font-size: 10pt;
+	font-weight: 800;
+	border-bottom: #455A64 solid 2px;
+	height: 30px;
+}
+.endTitle{ 
+	width: 100%;
+	height: 100px;
+	background-color: #455A64;
+	color: gray;
+	font-size: 10pt;
+}

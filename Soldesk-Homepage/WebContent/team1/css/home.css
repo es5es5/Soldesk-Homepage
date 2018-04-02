@@ -1,0 +1,38 @@
+@charset "EUC-KR";
+#siteContentArea {
+	margin-top: 145px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%; 
+	padding: 0px;  
+}
+.gasiTbl {  
+	width: 90%; 
+}
+.gasiTd {
+	width: 33%;  
+	height: 200px;
+	margin: 0px;   
+	padding: 10px; 
+}  
+.gasiTdColor{ 
+	background-color: silver; 
+}
+.gasiTd2 { 
+	width: 25%;
+	margin: 0px; 
+	padding: 10px;
+} 
+
+.gasiImg {
+	width: 100%;	
+	height: 100%;
+}
+#mainSlider {
+	margin: 0px;  
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
