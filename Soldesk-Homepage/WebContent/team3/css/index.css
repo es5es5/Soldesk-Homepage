@@ -1,0 +1,143 @@
+@charset "EUC-KR";
+
+a {
+	text-decoration: none;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+button{
+	outline: none;
+}
+table {
+	border-spacing: 0px;
+}
+
+#siteTitleArea {
+	width: 100%;
+	position: fixed;
+	top: 0px;
+	z-index: 1000;
+	background-color: white;
+}
+
+#siteTitle {
+	width: 1080px;
+}
+
+#siteLogo {
+	width: 70px;
+}
+
+#siteTitleArea2 {
+	background-color: #455A64;
+	color: white;
+	font-size: 10pt;
+	font-weight: 800;
+	height: 28px;
+	width: 100%;
+}
+
+#siteTitle2 {
+	width: 1080px;
+}
+
+#siteMenuArea {
+	width: 100%;
+	border-bottom:#455A64 solid 2px;
+}
+
+#siteMainMenuArea {
+	width: 1080px;
+}
+
+.siteMenu {
+	font-size: 11pt;
+	font-weight: 700;
+	height: 35px;
+	width: 130px;
+	padding-bottom: 5px;
+}
+
+.siteMenu a {
+	color: #455A64;
+}
+
+.siteMenu a:hover {
+	color: red;
+}
+
+#siteSubMenuArea {
+	width: 1080px;
+	display: none;
+	font-weight: 600;
+	background-color: white;
+}
+
+.siteSubMenu {
+	width: 130px;
+	padding: 0px;
+	margin: 0px;
+	height: 255px;
+}
+
+.siteSubMenu table tr td {
+	height: 33px;
+	padding-left: 7px;
+}
+
+.siteSubMenu table tr td a {
+	color: black;
+	font-size: 10pt;
+}
+
+.siteSubMenu table tr td a:hover {
+	color: red;
+}
+
+#siteContentArea {
+	margin-top: 153px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 1080px;
+	padding: 0px;
+}
+
+.selectedMenu {
+	background-color: #ECEFF1;
+}
+
+#mainSlider {
+	margin: 0px;
+	z-index: 0;
+}
+
+.sliderImg {
+	width: 1080px;
+}
+
+#siteSubMenu2Area{
+	position: fixed;
+	top:175px;
+	background-color: white;
+}
+#siteSubMenu2Title{
+	font-size: 10pt;
+	font-weight: 800;
+	color:#455A64;
+	border-bottom: #455A64 solid 2px;
+	height: 30px;
+}
+.siteSubMenu2{
+	font-size: 10pt;
+	font-weight: 800;
+	color:black;
+	height: 33px;
+	background-color: transparent;
+	border:none;
+}
+.siteSubMenu2:hover {
+	color:red;
+}

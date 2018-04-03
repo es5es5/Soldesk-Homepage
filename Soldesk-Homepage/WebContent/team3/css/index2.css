@@ -1,0 +1,17 @@
+@charset "EUC-KR";
+#subMenuArea {
+	width: 200px;
+	height: 1000px;
+	padding-left: 10px;
+}
+
+#subMenuTd {
+	position: fixed;
+	top: 50%;
+}
+
+#quickMenu{
+	position: fixed;
+	top: 30%;
+	left: 85%;
+}
