@@ -13,7 +13,7 @@
 		<tr>
 			<td><h1>
 					과정명
-					<!-- ${SOLDESK_contents_title} -->
+					<!-- ${contentsTitle} -->
 				</h1></td>
 		</tr>
 		<tr>
@@ -23,11 +23,11 @@
 					> 중분류
 					<!-- ${category } -->
 					> 과정명
-					<!-- ${SOLDESK_contents_title } -->
+					<!-- ${contentsTitle } -->
 				</h5></td>
 		</tr>
 		<tr>
-			<td>contentsInfo.jsp</td>
+			<td><jsp:include page="contentsInfo.jsp"></jsp:include></td>
 		</tr>
 		<tr>
 			<td>
@@ -39,16 +39,14 @@
 				</table>
 				<table border="solid">
 					<tr>
-						<td>
-							substance.jsp (여러개)
-						</td>
+						<td><jsp:include page="substance.jsp"></jsp:include>(여러번 불러내도록)</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<button>이전</button>
+				<button>이전</button>(onclick으로 이전화면으로 돌아가게)
 			</td>
 		</tr>
 	</table>

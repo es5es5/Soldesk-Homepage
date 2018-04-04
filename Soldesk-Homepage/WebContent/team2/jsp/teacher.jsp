@@ -12,12 +12,13 @@
 			<td>
 				<table border="solid">
 					<tr>
-						<td>강사 사진<!-- ${photo } 없음 --></td>
+						<td><img alt="강사 사진"
+							src="http://www.soldesk.co.kr/images/pt!tcUGH.png"> <!-- <img alt="강사 사진" src="${photo }"> --></td>
 					</tr>
 					<tr>
 						<td><h3>
 								강사명
-								<!-- ${SOLDESK_teacher_name } -->
+								<!-- ${teacherName } -->
 							</h3> 강사님</td>
 					</tr>
 				</table>
@@ -28,13 +29,13 @@
 						<td><h3>교육경력사항</h3></td>
 					</tr>
 					<tr>
-						<td>내용<!-- ${SOLDESK_teacher_resume } --></td>
+						<td>내용<!-- ${teacherResume } --></td>
 					</tr>
 					<tr>
 						<td><h3>보유자격증</h3></td>
 					</tr>
 					<tr>
-						<td>내용<!-- ${SOLDESK_teacher_certificate } --></td>
+						<td>내용<!-- ${teacherCertificate } --></td>
 					</tr>
 				</table>
 			</td>

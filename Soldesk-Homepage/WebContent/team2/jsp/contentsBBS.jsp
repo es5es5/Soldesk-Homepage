@@ -22,22 +22,35 @@
 <body>
 	<table border="solid">
 		<tr>
-			<td><h1>대분류명</h1></td>
+			<td><h1>
+					대분류명
+					<!-- ${smName } -->
+				</h1></td>
 		</tr>
 		<tr>
 			<td>
 				<table border="solid">
 					<tr>
 						<td>전체</td>
-						<td>분류1</td>
-						<td>분류2</td>
-						<td>분류3</td>
+						<td>분류1<!-- ${ssName } -->(포이치 (배열))
+						</td>
+						<td>분류2<!-- ${ssName } -->(포이치 (배열))
+						</td>
+						<td>분류3<!-- ${ssName } -->(포이치 (배열), 조건문으로 현재 선택된 것을 BOALD체
+							처리)
+						</td>
 					</tr>
 				</table>
 			</td>
 		</tr>
 		<tr>
-			<td><h3>대분류 > 중분류</h3></td>
+			<td><h3>
+					대분류
+					<!-- ${smName } -->
+					> 중분류
+					<!-- ${ssName } -->
+					(현재 선택된 분류)
+				</h3></td>
 		</tr>
 		<tr>
 			<td>
@@ -54,11 +67,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td>과정명1</td>
-						<td>900,000</td>
+						<td>과정명<!-- ${scTitle } --></td>
+						<td>900,000<!-- ${scExpense } --></td>
 						<td>
 							<button>수강신청</button>
 						</td>
+					</tr>
+					<tr>
+						<td colspan="3">(윗열과 같은 것으로 포이치 (배열), 한 페이지에 10개까지 표시)</td>
 					</tr>
 				</table>
 			</td>
