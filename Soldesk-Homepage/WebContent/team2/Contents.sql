@@ -11,7 +11,7 @@ create table SOLDESK_contents
         sc_schedule_FINISH date not null,					-- 교육일정(끝)
         -- 교육기간은 종료일정에서 시작일정을 뺀 값을 넣음.
         
-        SOLDESK_contents_week number(3)not null,			-- 교육시간(요일)
+        sc_week number(3)not null,			-- 교육시간(요일)
         -- 덧샘뺄샘을 이용해서 7개 요일을 자유자제로 선택해서 고를 수 있게끔 설정
 			-- 다 더해진 값이 저장됨.
 			-- 가장 큰 값을 빼서 0보다 크면 해당 값의 요일이 표시.
