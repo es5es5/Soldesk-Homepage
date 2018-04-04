@@ -22,7 +22,7 @@ public class DBManager {
 		Context ctx = new InitialContext();
 
 		// 튜브 대여소(Connection 대여소)
-		DataSource ds = (DataSource) ctx.lookup("java:comp/env/SOMETHINGPOOL");
+		DataSource ds = (DataSource) ctx.lookup("java:comp/env/SoldeskHomepage");
 
 		return ds.getConnection();
 	}
@@ -33,9 +33,9 @@ public class DBManager {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 
 		// DB서버 주소
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@172.16.1.8:1521:xe";
 
-		return DriverManager.getConnection(url, "SOMEONE", "PASSWORD");
+		return DriverManager.getConnection(url, "SoldeskHomepage", "soldesklove");
 	}
 
 	public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
