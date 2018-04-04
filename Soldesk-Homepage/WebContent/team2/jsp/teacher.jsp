@@ -13,26 +13,34 @@
 				<table border="solid">
 					<tr>
 						<td><img alt="강사 사진"
-							src="http://www.soldesk.co.kr/images/pt!tcUGH.png"> <!-- <img alt="강사 사진" src="${photo }"> --></td>
+							src="http://www.soldesk.co.kr/images/pt!tcUGH.png">
+							<button>수정</button> <!-- <img alt="강사 사진" src="${photo }"> --></td>
 					</tr>
 					<tr>
 						<td><h3>
 								강사명
 								<!-- ${teacherName } -->
-							</h3> 강사님</td>
+							</h3> 강사님
+							<button>수정</button></td>
 					</tr>
 				</table>
 			</td>
 			<td>
 				<table border="solid">
 					<tr>
-						<td><h3>교육경력사항</h3></td>
+						<td><h3>
+								교육경력사항
+								<button>수정</button>
+							</h3></td>
 					</tr>
 					<tr>
 						<td>내용<!-- ${teacherResume } --></td>
 					</tr>
 					<tr>
-						<td><h3>보유자격증</h3></td>
+						<td><h3>
+								보유자격증
+								<button>수정</button>
+							</h3></td>
 					</tr>
 					<tr>
 						<td>내용<!-- ${teacherCertificate } --></td>

@@ -24,6 +24,7 @@
 		<tr>
 			<td><h1>
 					대분류명
+					<button>수정</button>
 					<!-- ${smName } -->
 				</h1></td>
 		</tr>
@@ -48,6 +49,7 @@
 					대분류
 					<!-- ${smName } -->
 					> 중분류
+					<button>수정</button>
 					<!-- ${ssName } -->
 					(현재 선택된 분류)
 				</h3></td>
@@ -67,14 +69,21 @@
 						</td>
 					</tr>
 					<tr>
-						<td>과정명<!-- ${scTitle } --></td>
-						<td>900,000<!-- ${scExpense } --></td>
+						<td>과정명
+							<button>수정</button> <!-- ${scTitle } -->
+						</td>
+						<td>900,000
+							<button>수정</button> <!-- ${scExpense } -->
+						</td>
 						<td>
 							<button>수강신청</button>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3">(윗열과 같은 것으로 포이치 (배열), 한 페이지에 10개까지 표시)</td>
+					</tr>
+					<tr>
+						<td colspan="3"><button>추가</button></td>
 					</tr>
 				</table>
 			</td>

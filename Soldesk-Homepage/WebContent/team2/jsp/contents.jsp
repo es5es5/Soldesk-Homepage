@@ -14,6 +14,7 @@
 			<td><h1>
 					과정명
 					<!-- ${contentsTitle} -->
+					<button>수정</button>
 				</h1></td>
 		</tr>
 		<tr>
@@ -39,7 +40,13 @@
 				</table>
 				<table border="solid">
 					<tr>
-						<td><jsp:include page="substance.jsp"></jsp:include>(여러번 불러내도록)</td>
+						<td><jsp:include page="substance.jsp"></jsp:include>(여러번
+							불러내도록)</td>
+					</tr>
+					<tr>
+						<td>
+							<button>추가</button>
+						</td>
 					</tr>
 				</table>
 			</td>

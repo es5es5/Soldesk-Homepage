@@ -12,12 +12,16 @@
 			<td>
 				<h3>
 					제목
+					<button>수정</button>
 					<!-- ${substanceTitle } -->
 				</h3>
 			</td>
 		</tr>
 		<tr>
-			<td>내용<!-- ${substanceInfo } --></td>
+			<td>내용
+				<button>수정</button>
+				<!-- ${substanceInfo } -->
+			</td>
 		</tr>
 	</table>
 </body>
