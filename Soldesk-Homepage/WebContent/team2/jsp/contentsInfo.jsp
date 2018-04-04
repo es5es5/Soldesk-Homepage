@@ -10,23 +10,36 @@
 	<table border="solid">
 		<tr>
 			<td>
-				<h3>교육일정</h3>
+				<h3>
+					교육일정
+					<button>수정</button>
+				</h3>
 			</td>
-			<td>시작일정 ~ 종료일정<!-- 교육일정 --></td>
+			<td>시작일정 ~ 종료일정<!-- ${scheduleStart } ~ ${scheduleFinish } --></td>
 			<td>
-				<h3>교육기간</h3>
+				<h3>
+					교육기간
+					<button>수정</button>
+				</h3>
 			</td>
-			<td>종료일정 - 시작일정, (종료시간 - 시작시간) * (종료일정 - 시작일정) (함수 만들어서 씀)<!-- 교육기간 --></td>
+			<td>종료월 - 시작월<!-- ${totalMonth } -->, (종료시간 - 시작시간) * (종료일정 -
+				시작일정) (함수 만들어서 씀)<!-- ${totalHours } --></td>
 		</tr>
 		<tr>
 			<td>
-				<h3>교육시간</h3>
+				<h3>
+					교육시간
+					<button>수정</button>
+				</h3>
 			</td>
-			<td>각 요일이 표시, 시작시간 ~ 종료시간 <!-- 교육시간 --></td>
+			<td>각 요일이 표시, 시작시간 ~ 종료시간 <!-- ${timeStart } ~ ${timeFinish } --></td>
 			<td>
-				<h3>수강정원</h3>
+				<h3>
+					수강정원
+					<button>수정</button>
+				</h3>
 			</td>
-			<td>수강정원(명)<!-- ${SOLDESK_contents_info_capacity }명 --></td>
+			<td>수강정원(명)<!-- ${capacity }명 --></td>
 		</tr>
 	</table>
 </body>

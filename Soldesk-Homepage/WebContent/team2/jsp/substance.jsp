@@ -12,12 +12,16 @@
 			<td>
 				<h3>
 					제목
-					<!-- ${SOLDESK_contents_substance_title } -->
+					<button>수정</button>
+					<!-- ${substanceTitle } -->
 				</h3>
 			</td>
 		</tr>
 		<tr>
-			<td>내용<!-- ${SOLDESK_contents_substance_info } --></td>
+			<td>내용
+				<button>수정</button>
+				<!-- ${substanceInfo } -->
+			</td>
 		</tr>
 	</table>
 </body>
