@@ -4,14 +4,14 @@
 
 create table SOLDESK_contents
     (
-        sc_title varchar2(20 char) primary key,				-- 과정명			SOLDESK_contents_substance_main_title join
         sc_category varchar2(20 char) not null,				-- 분류			ss_name join
-        sc_teacher varchar2(10 char) not null,				-- 강사명 			SOLDESK_teacher_name join
+        sc_title varchar2(50 char) primary key,				-- 과정명			SOLDESK_contents_substance_main_title join
+        sc_teacher number(10) not null,						-- 강사고유번호		st_no join
     	sc_schedule_START date not null,					-- 교육일정(시작)
         sc_schedule_FINISH date not null,					-- 교육일정(끝)
         -- 교육기간은 종료일정에서 시작일정을 뺀 값을 넣음.
         
-        sc_week number(3)not null,			-- 교육시간(요일)
+        sc_week number(3)not null,							-- 교육시간(요일)
         -- 덧샘뺄샘을 이용해서 7개 요일을 자유자제로 선택해서 고를 수 있게끔 설정
 			-- 다 더해진 값이 저장됨.
 			-- 가장 큰 값을 빼서 0보다 크면 해당 값의 요일이 표시.
@@ -23,6 +23,7 @@ create table SOLDESK_contents
         sc_time_START date not null,						-- 교육시간(시작)
         sc_time_FINISH date not null,						-- 교육시간(끝)
         sc_capacity number(3) not null,						-- 수강정원
+        
         sc_expense number(10) not null						-- 교육비
     );
     
@@ -50,7 +51,7 @@ insert into SOLDESK_contents values
 	(
         '자바 빅데이터 취업반',									-- 분류			ss_name join
         '자바 보안코딩 빅데이터개발 양성과정',							-- 과정명			SOLDESK_contents_substance_main_title join
-        '엄기흥',												-- 강사명 			SOLDESK_teacher_name join
+        1,													-- 강사명 			SOLDESK_teacher_name join
     	to_date('2018.04.24','yyyy.mm.dd'),					-- 교육일정(시작)
     	to_date('2018.10.26','yyyy.mm.dd'),					-- 교육일정(끝)
         31,--1/2/4/8/16/32/64								-- 교육시간(요일)
@@ -76,3 +77,7 @@ insert into SOLDESK_contents_substance values
 		'훈련목표',											-- 소내용 제목
 		'- 자바 기반 머신러닝을 학습하여 실무 프로젝트를 수행 할 수 있는 능력 함양을 목표로 한다.'-- 소내용 내용
 	);
+	
+select * from SOLDESK_CONTENTS;
+select * from SOLDESK_CONTENTS_SUBSTANCE;
+select * from SOLDESK_TEACHER;
