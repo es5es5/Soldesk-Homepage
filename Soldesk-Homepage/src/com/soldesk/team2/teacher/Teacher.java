@@ -46,5 +46,4 @@ public class Teacher {
 		this.st_certificate = st_certificate;
 	}
 	
-	
 }

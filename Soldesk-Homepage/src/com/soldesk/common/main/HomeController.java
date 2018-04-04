@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/HC")
-public class HC extends HttpServlet {
+@WebServlet("/HomeController")
+public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public HC() {
+	public HomeController() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
