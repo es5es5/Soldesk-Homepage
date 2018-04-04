@@ -4,8 +4,8 @@
 
 create table SOLDESK_contents
     (
-        sc_category varchar2(20 char) not null,				-- 분류			ss_name join
         sc_title varchar2(20 char) primary key,				-- 과정명			SOLDESK_contents_substance_main_title join
+        sc_category varchar2(20 char) not null,				-- 분류			ss_name join
         sc_teacher varchar2(10 char) not null,				-- 강사명 			SOLDESK_teacher_name join
     	sc_schedule_START date not null,					-- 교육일정(시작)
         sc_schedule_FINISH date not null,					-- 교육일정(끝)
@@ -23,8 +23,7 @@ create table SOLDESK_contents
         sc_time_START date not null,						-- 교육시간(시작)
         sc_time_FINISH date not null,						-- 교육시간(끝)
         sc_capacity number(3) not null,						-- 수강정원
-        
-        sc_expenses number(10) not null						-- 교육비
+        sc_expense number(10) not null						-- 교육비
     );
     
 create table SOLDESK_contents_substance
