@@ -6,6 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>CONTENTS_BBS_PAGE</title>
+<script src="js/jquery-1.12.4.min.js"></script>
+<script src="js/jquery.bxslider.js"></script>
+<script src="js/setImgSlider.js"></script>
+<script src="js/setMenu.js"></script>
+<script src="js/mainMenu.js"></script>
+<script type="text/javascript">
+	$(function() {
+		setMainMenuAnimation();
+		setMainSlider();
+		setSiteSubMenu2();
+	});
+</script>
 </head>
 <body>
 	<table border="solid">
@@ -16,43 +28,10 @@
 			<td>
 				<table border="solid">
 					<tr>
-						<td>분류 전체</td>
-						<td>분류 1</td>
-						<td>분류 2</td>
-						<td>분류 3</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<table border="solid">
-					<tr>
-						<td>
-							<h2>과정</h2>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table border="solid">
-								<tr>
-									<td>
-										<h3>분류1</h3>
-									</td>
-									<td>
-										<h3>분류2</h3>
-									</td>
-									<td>
-										<h3>분류3</h3>
-									</td>
-								</tr>
-								<tr>
-									<td>-과정명 나열</td>
-									<td>-과정명 나열</td>
-									<td>-과정명 나열</td>
-								</tr>
-							</table>
-						</td>
+						<td>전체</td>
+						<td>분류1</td>
+						<td>분류2</td>
+						<td>분류3</td>
 					</tr>
 				</table>
 			</td>
