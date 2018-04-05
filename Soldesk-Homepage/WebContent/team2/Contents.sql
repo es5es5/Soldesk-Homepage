@@ -1,7 +1,3 @@
---	각 테이블을 join을 이용해서 연결함
---		카테고리 = 대분류(NN), 중분류, 소분류(PK)
---		컨텐츠 = 소분류(NN), 과정명(PK), 학습기간(NN), 집합강의시간(NN), 교육비지원(NN), 교육비(NN), 
-
 create table SOLDESK_contents
     (
         sc_category varchar2(20 char) not null,				-- 분류			ss_name join
