@@ -54,7 +54,7 @@
 										<jsp:include page="substance.jsp"></jsp:include>
 									</c:forEach>
 								</c:when>
-								<c:otherwise>수강후기</c:otherwise>
+								<c:otherwise>수강후기(수강후기도 substance.jsp)</c:otherwise>
 							</c:choose></td>
 					</tr>
 					<tr>

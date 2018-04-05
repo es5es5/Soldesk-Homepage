@@ -69,13 +69,12 @@
 							<h4>수강신청</h4>
 						</td>
 					</tr>
-					<c:forEach begin="1" end="10" step="1">
-						<!-- ${sc } arrayList 받을거임 -->
+					<c:forEach var="c" items="${contents }">
 						<tr>
-							<td><a href="contents.jsp">과정명</a>
-								<button>수정</button> <!-- ${scTitle } --></td>
-							<td>900,000
-								<button>수정</button> <!-- ${scExpense } -->
+							<td><a href="contentsController?sc_title=${sc_title }">${c.sc_title }</a>
+								<button>수정</button></td>
+							<td>${sc_expense }
+								<button>수정</button>
 							</td>
 							<td>
 								<button>수강신청</button>
@@ -84,6 +83,12 @@
 					</c:forEach>
 					<tr>
 						<td colspan="3"><button>추가</button></td>
+					</tr>
+					<tr>
+						<td colspan="3"><c:forEach var="p" begin="1"
+								end="${pageCount }">&nbsp;
+							<a href="ContentsPageController?p=${p }">${p }</a>
+							</c:forEach></td>
 					</tr>
 				</table>
 			</td>
