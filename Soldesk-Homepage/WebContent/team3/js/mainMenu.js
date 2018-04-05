@@ -37,12 +37,16 @@ function deleteMainMenu(sm_no) {
 	}
 }
 
-function bulletin_goWrite() {
-	location.href = "BulletinGoWriteController";
-}
-
 function goContentPage(ss_type) {
 	if (ss_type == 1) {
 		location.href = "BulletinController";
 	}
+}
+
+function updateBulletin(wn_no) {
+	location.href = "UpdateBulletinController?wn_no="+wn_no;
+}
+
+function deleteBulletin(wn_no) {
+	location.href = "DeleteBulletinController?wn_no="+wn_no;
 }

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="WriteNoticeController" method="post">
+	<form action="WriteBulletinController" method="post">
 		<table border="1" style="width: 100%; height: 100%;">
 			<tr>
 				<td>

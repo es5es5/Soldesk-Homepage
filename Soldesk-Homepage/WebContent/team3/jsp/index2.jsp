@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/index2.css">
 <link rel="stylesheet" href="css/createSubMenu.css">
-<link rel="stylesheet" href="css/bulletin/notice.css">
-<link rel="stylesheet" href="css/bulletin/noticeWrite.css">
+<link rel="stylesheet" href="css/bulletin/bulletin.css">
 <script src="js/jquery-1.12.4.min.js"></script>
 <script src="js/jquery.bxslider.js"></script>
 <script src="js/setImgSlider.js"></script>
@@ -129,7 +128,7 @@
 			</td>
 		</tr>
 	</table>
-	<table id="quickMenu">
+	<!--<table id="quickMenu">
 		<tr>
 			<td>QuickMenu<hr></td>
 		</tr>
@@ -157,6 +156,6 @@
 		<tr>
 			<td><a href="#top">top</a></td>
 		</tr>
-	</table>
+	</table>-->
 </body>
 </html>

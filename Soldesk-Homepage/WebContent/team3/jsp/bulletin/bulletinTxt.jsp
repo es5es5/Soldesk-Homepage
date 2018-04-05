@@ -9,12 +9,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table id="noticeTable" border="1">
+	<table id="bulletinTable" border="1">
 			<tr>
 				<td colspan="2">&nbsp;세부 사항</td>
 			</tr>
 			<tr>
-				<td id="noticeViewTitle">&nbsp;
+				<td id="bulletinViewTitle">&nbsp;
 					${notice.wn_title}
 				</td>
 				<td align="right">

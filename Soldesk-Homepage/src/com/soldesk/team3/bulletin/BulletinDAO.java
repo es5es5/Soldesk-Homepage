@@ -1,4 +1,4 @@
-package com.soldesk.team3.notice;
+package com.soldesk.team3.bulletin;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.stw.teamproject.home.DBManager;
+import com.soldesk.team3.home.DBManager;
 
-public class NoticeDAO {
+public class BulletinDAO {
 	
-	private ArrayList<NoticeList> lists;
+	private ArrayList<BulletinList> lists;
 	
-	private static final NoticeDAO WNDAO = new NoticeDAO();
+	private static final BulletinDAO WNDAO = new BulletinDAO();
 	
-	public NoticeDAO() {
+	public BulletinDAO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static NoticeDAO getWndao() {
+	public static BulletinDAO getWndao() {
 		return WNDAO;
 	}
 
@@ -41,9 +41,9 @@ public class NoticeDAO {
 			rs = pstmt.executeQuery();
 
 			lists = new ArrayList<>();
-			NoticeList wn = null;
+			BulletinList wn = null;
 			while (rs.next()) {
-				wn = new NoticeList();
+				wn = new BulletinList();
 				wn.setWn_no(rs.getInt("wn_no"));
 				wn.setWn_title(rs.getString("wn_title"));
 				wn.setWn_txt(rs.getString("wn_txt"));
@@ -91,10 +91,6 @@ public class NoticeDAO {
 			String wn_txt = request.getParameter("wn_txt");
 			String wn_title = request.getParameter("wn_title");
 			wn_txt = wn_txt.replace("\n", "<br>");
-			
-			HttpSession hs = request.getSession();
-			NoticeList wn =  (NoticeList) hs.getAttribute("loginMember");
-			
 			
 			String sql = "insert into write_notice values(" 
 					+ "write_notice_seq.nextval, ?, ?, sysdate)";
@@ -162,7 +158,7 @@ public class NoticeDAO {
 			int wn_no = Integer.parseInt(request.getParameter("wn_no"));
 			
 			String sql = "update write_notice "
-						+ "set wn_txt =?, wn_title=?, wn_date = sysdate "
+						+ "set wn_txt =?, wn_title=? "
 						+ "where wn_no=?";
 
 			pstmt = con.prepareStatement(sql);
@@ -196,7 +192,7 @@ public class NoticeDAO {
 			pstmt.setInt(1, wn_no);
 			rs = pstmt.executeQuery();
 			rs.next();
-			NoticeList wn = new NoticeList(rs.getInt("wn_no"), rs.getString("wn_title"), rs.getString("wn_txt"), rs.getDate("wn_date"));
+			BulletinList wn = new BulletinList(rs.getInt("wn_no"), rs.getString("wn_title"), rs.getString("wn_txt"), rs.getDate("wn_date"));
 			request.setAttribute("notice", wn);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -206,27 +202,19 @@ public class NoticeDAO {
 	}
 	
 	public void paging(int page, HttpServletRequest request, HttpServletResponse response) {
-		HttpSession hs = request.getSession();
-		
-		ArrayList<NoticeList> lists2 
-			= (ArrayList<NoticeList>) hs.getAttribute("searchBoard");
-		
-		if(lists2 == null) {
-			lists2 = lists;
-		}
 		
 		double cnt = 10;
-		int itemSize = lists2.size();
+		int itemSize = lists.size();
 		int pageCount = (int) Math.ceil(itemSize / cnt);
 		request.setAttribute("pageCount", pageCount);
 
 		int start = itemSize - ((int) cnt * (page - 1));
 		int end = (page == pageCount) ? -1 : start - ((int) cnt + 1);
 
-		ArrayList<NoticeList> items2 = new ArrayList<>();
+		ArrayList<BulletinList> items2 = new ArrayList<>();
 
 		for (int i = start - 1; i > end; i--) {
-			items2.add(lists2.get(i));
+			items2.add(lists.get(i));
 		}
 
 		request.setAttribute("curPageNo", page);
