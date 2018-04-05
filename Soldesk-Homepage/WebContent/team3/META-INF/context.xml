@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource
+		name="parkds"
+		type="javax.sql.DataSource"
+		driverClassName="oracle.jdbc.driver.OracleDriver"
+		factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+		username="pjk"
+		password="qwer"
+		url="jdbc:oracle:thin:@172.16.1.10:1521:xe"
+		maxTotal="50"
+		maxIdle="10"
+	/>
+</Context>

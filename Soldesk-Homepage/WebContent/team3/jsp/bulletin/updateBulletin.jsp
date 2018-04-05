@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="UpdateNoticeController?wn_no=${param.wn_no }"  method="post">
+	<form action="UpdateBulletinController?wn_no=${param.wn_no }"  method="post">
 		<table border="1" style="width: 100%; height: 100%;">
 			<tr>
 				<td>
@@ -23,11 +23,11 @@
 						</tr>
 						<tr>
 							<td colspan="2" style="height: 30px;"><textarea name="wn_title" autofocus="autofocus"
-									placeholder="100자 내외" maxlength="200" style="width: 100%; height: 20px; resize: none;"></textarea></td>
+									placeholder="100자 내외" maxlength="200" style="width: 100%; height: 20px; resize: none;">${notice.wn_title}</textarea></td>
 						</tr>
 						<tr>
 							<td colspan="2"><textarea name="wn_txt" autofocus="autofocus"
-									placeholder="200자 내외" maxlength="200" style="width: 100%; height: 100%; resize: none;"></textarea></td>
+									placeholder="200자 내외" maxlength="200" style="width: 100%; height: 100%; resize: none;">${notice.wn_txt}</textarea></td>
 						</tr>
 						<tr>
 							<td colspan="2" align="right" style="height: 30px;"><input type="submit" value="작성"></td>
