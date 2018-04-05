@@ -13,7 +13,7 @@
 		<tr>
 			<td><h1>
 					과정명
-					<!-- ${contentsTitle} -->
+					<!-- ${contentsTitle } -->
 					<button>수정</button>
 				</h1></td>
 		</tr>
@@ -34,14 +34,28 @@
 			<td>
 				<table border="solid">
 					<tr>
-						<td>과정소개</td>
-						<td>수강후기</td>
+						<td><c:if test="${1==1 }">
+								<h4>
+							</c:if> 과정소개 <c:if test="${1==1 }">
+								</h4>
+							</c:if></td>
+						<td><c:if test="${1!=1 }">
+								<h4>
+							</c:if> 수강후기 <c:if test="${1!=1 }">
+								</h4>
+							</c:if></td>
 					</tr>
 				</table>
 				<table border="solid">
 					<tr>
-						<td><jsp:include page="substance.jsp"></jsp:include>(여러번
-							불러내도록)</td>
+						<td><c:choose>
+								<c:when test="${1==1 }">
+									<c:forEach var="i" begin="1" end="5" step="1">
+										<jsp:include page="substance.jsp"></jsp:include>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>수강후기</c:otherwise>
+							</c:choose></td>
 					</tr>
 					<tr>
 						<td>

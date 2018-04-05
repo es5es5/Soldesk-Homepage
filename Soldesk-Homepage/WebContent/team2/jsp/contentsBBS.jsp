@@ -24,8 +24,8 @@
 		<tr>
 			<td><h1>
 					대분류명
-					<button>수정</button>
 					<!-- ${smName } -->
+					<button>수정</button>
 				</h1></td>
 		</tr>
 		<tr>
@@ -33,13 +33,14 @@
 				<table border="solid">
 					<tr>
 						<td>전체</td>
-						<td>분류1<!-- ${ssName } -->(포이치 (배열))
-						</td>
-						<td>분류2<!-- ${ssName } -->(포이치 (배열))
-						</td>
-						<td>분류3<!-- ${ssName } -->(포이치 (배열), 조건문으로 현재 선택된 것을 BOALD체
-							처리)
-						</td>
+						<c:forEach var="i" begin="1" end="3" step="1">
+							<!-- ${ss } arrayList 받을거임 -->
+							<td><c:if test="${i==1}">
+									<h4>
+								</c:if> 분류<!-- ${ssName } --> <c:if test="${i==1}">
+									</h4>
+								</c:if></td>
+						</c:forEach>
 					</tr>
 				</table>
 			</td>
@@ -49,8 +50,8 @@
 					대분류
 					<!-- ${smName } -->
 					> 중분류
-					<button>수정</button>
 					<!-- ${ssName } -->
+					<button>수정</button>
 					(현재 선택된 분류)
 				</h3></td>
 		</tr>
@@ -68,20 +69,20 @@
 							<h4>수강신청</h4>
 						</td>
 					</tr>
-					<tr>
-						<td>과정명
-							<button>수정</button> <!-- ${scTitle } -->
-						</td>
-						<td>900,000
-							<button>수정</button> <!-- ${scExpense } -->
-						</td>
-						<td>
-							<button>수강신청</button>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="3">(윗열과 같은 것으로 포이치 (배열), 한 페이지에 10개까지 표시)</td>
-					</tr>
+					<c:forEach begin="1" end="10" step="1">
+						<!-- ${sc } arrayList 받을거임 -->
+						<tr>
+							<td>과정명
+								<button>수정</button> <!-- ${scTitle } -->
+							</td>
+							<td>900,000
+								<button>수정</button> <!-- ${scExpense } -->
+							</td>
+							<td>
+								<button>수강신청</button>
+							</td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td colspan="3"><button>추가</button></td>
 					</tr>

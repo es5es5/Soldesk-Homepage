@@ -12,15 +12,15 @@
 			<td>
 				<h3>
 					제목
-					<button>수정</button>
 					<!-- ${substanceTitle } -->
+					<button>수정</button>
 				</h3>
 			</td>
 		</tr>
 		<tr>
 			<td>내용
-				<button>수정</button>
 				<!-- ${substanceInfo } -->
+				<button>수정</button>
 			</td>
 		</tr>
 	</table>
