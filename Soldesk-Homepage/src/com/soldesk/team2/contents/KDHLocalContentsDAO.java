@@ -54,6 +54,18 @@ public class KDHLocalContentsDAO
 		request.setAttribute("contents", contents2);
 	}
 
+	public void substancePaging(HttpServletRequest request, HttpServletResponse response)
+	{
+		int pageCount = (int) Math.ceil(substance.size() / 50.0);
+		request.setAttribute("pageCount", pageCount);
+		ArrayList<ContentsSubstance> substance2 = new ArrayList<>();
+		for (int i = substance.size() - 1; i > (1 == pageCount ? -1 : substance.size() - 51); i--)
+		{
+			substance2.add(substance.get(i));
+		}
+		request.setAttribute("substance", substance2);
+	}
+
 	public void getAllContents(HttpServletRequest request, HttpServletResponse response)
 	{
 		Connection con = null;
@@ -164,7 +176,7 @@ public class KDHLocalContentsDAO
 		try
 		{
 			con = DBManager.connect();
-			pstmt = con.prepareStatement("select * from SOLDESK_contents_substance " + "order by scs_no");
+			pstmt = con.prepareStatement("select * from SOLDESK_contents_substance " + "order by scs_no desc");
 			rs = pstmt.executeQuery();
 			substance = new ArrayList<>();
 			while (rs.next())

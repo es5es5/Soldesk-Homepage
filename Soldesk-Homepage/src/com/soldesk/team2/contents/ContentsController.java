@@ -20,6 +20,7 @@ public class ContentsController extends HttpServlet
 		KDHLocalContentsDAO.getCDAO().getDetailContents(request, response);
 		KDHLocalContentsDAO.getCDAO().getAllSubstance(request, response);
 		KDHLocalContentsDAO.getCDAO().contentsPaging(request, response);
+		KDHLocalContentsDAO.getCDAO().substancePaging(request, response);
 		request.setAttribute("contentPage", "contents/contents.jsp");
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}

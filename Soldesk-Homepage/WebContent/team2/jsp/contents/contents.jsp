@@ -88,17 +88,21 @@
 						<td><c:choose>
 								<c:when test="${1==1 }">
 									<c:forEach var="s" items="${substance }">
-										<tr>
-											<td>${s.scs_title }
-												<button>수정</button>
-											</td>
-											<td>${s.scs_info }
-												<button>수정</button>
-											</td>
-											<td>
-												<button>수강신청</button>
-											</td>
-										</tr>
+										<table border="solid">
+											<tr>
+												<td>
+													<h3>
+														${s.scs_title }
+														<button>수정</button>
+													</h3>
+												</td>
+											</tr>
+											<tr>
+												<td>${s.scs_info }
+													<button>수정</button>
+												</td>
+											</tr>
+										</table>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>수강후기(수강후기도 substance.jsp)</c:otherwise>
