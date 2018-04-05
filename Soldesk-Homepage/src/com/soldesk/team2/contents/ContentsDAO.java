@@ -52,6 +52,14 @@ public class ContentsDAO {
 
 			String sql = "insert into SOLDESK_contents values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, sc_category);
+			pstmt.setString(2, sc_title);
+			pstmt.setString(3, sc_teacher);
+			pstmt.setString(4, sc_schedule_start);
+			pstmt.setString(5, sc_schedule_finish);
+			pstmt.setString(6, sc_week);
+			
 
 			if (pstmt.executeUpdate() == 1) {
 				// contents 등록 성공
