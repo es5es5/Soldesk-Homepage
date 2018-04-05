@@ -54,6 +54,7 @@ public class TeacherDAO {
 		} finally {
 			DBManager.close(con, pstmt, null);
 		}
+	}
 
 	public void deleteTeacher(HttpServletRequest request, HttpServletResponse response) {
 		Connection con = null;

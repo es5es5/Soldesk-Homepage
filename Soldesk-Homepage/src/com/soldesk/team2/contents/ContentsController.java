@@ -17,10 +17,10 @@ public class ContentsController extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		KDHLocalContentsDAO.getCDAO().getDetailContents(request, response);
-		KDHLocalContentsDAO.getCDAO().getAllSubstance(request, response);
-		KDHLocalContentsDAO.getCDAO().contentsPaging(request, response);
-		KDHLocalContentsDAO.getCDAO().substancePaging(request, response);
+		ContentsDAO.getCdao().getDetailContents(request, response);
+		ContentsDAO.getCdao().getAllSubstance(request, response);
+		ContentsDAO.getCdao().contentsPaging(request, response);
+		ContentsDAO.getCdao().substancePaging(request, response);
 		request.setAttribute("contentPage", "contents/contents.jsp");
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}
