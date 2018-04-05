@@ -12,8 +12,7 @@
 	<table border="solid">
 		<tr>
 			<td><h1>
-					과정명
-					<!-- ${contentsTitle } -->
+					${c.sc_title }
 					<button>수정</button>
 				</h1></td>
 		</tr>
@@ -23,12 +22,50 @@
 					<!-- ${category } -->
 					> 중분류
 					<!-- ${category } -->
-					> 과정명
-					<!-- ${contentsTitle } -->
+					> ${c.sc_title }
 				</h5></td>
 		</tr>
 		<tr>
-			<td><jsp:include page="contentsInfo.jsp"></jsp:include></td>
+			<td>
+				<table border="solid">
+					<tr>
+						<td>
+							<h3>
+								교육일정
+								<button>수정</button>
+							</h3>
+						</td>
+						<td><fmt:formatDate value="${c.sc_schedule_start }"
+								pattern="yyyy.MM.dd" /> ~ <fmt:formatDate
+								value="${c.sc_schedule_finish }" pattern="yyyy.MM.dd" /></td>
+						<td>
+							<h3>
+								교육기간
+								<button>수정</button>
+							</h3>
+						</td>
+						<td>${totalMonth }개월,총${totalHours }시간</td>
+					</tr>
+					<tr>
+						<td>
+							<h3>
+								교육시간
+								<button>수정</button>
+							</h3>
+						</td>
+						<td>매 주 ${totalWeeks }, <fmt:formatDate
+								value="${c.sc_time_start }" pattern="kk:mm" /> ~ <fmt:formatDate
+								value="${c.sc_time_finish }" pattern="kk:mm" /></td>
+						<td>
+							<h3>
+								수강정원
+								<button>수정</button>
+							</h3>
+						</td>
+						<td>${c.sc_capacity }명</td>
+					</tr>
+				</table>
+			</td>
 		</tr>
 		<tr>
 			<td>
@@ -50,8 +87,18 @@
 					<tr>
 						<td><c:choose>
 								<c:when test="${1==1 }">
-									<c:forEach var="i" begin="1" end="5" step="1">
-										<jsp:include page="substance.jsp"></jsp:include>
+									<c:forEach var="s" items="${substance }">
+										<tr>
+											<td>${s.scs_title }
+												<button>수정</button>
+											</td>
+											<td>${s.scs_info }
+												<button>수정</button>
+											</td>
+											<td>
+												<button>수강신청</button>
+											</td>
+										</tr>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>수강후기(수강후기도 substance.jsp)</c:otherwise>

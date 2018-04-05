@@ -71,7 +71,7 @@
 					</tr>
 					<c:forEach var="c" items="${contents }">
 						<tr>
-							<td><a href="contentsController?sc_title=${sc_title }">${c.sc_title }</a>
+							<td><a href="ContentsController?sc_title=${c.sc_title }">${c.sc_title }</a>
 								<button>수정</button></td>
 							<td>${sc_expense }
 								<button>수정</button>

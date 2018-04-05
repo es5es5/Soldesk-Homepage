@@ -1,6 +1,6 @@
 package com.soldesk.team2.contents;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Contents {
 	private String sc_category;

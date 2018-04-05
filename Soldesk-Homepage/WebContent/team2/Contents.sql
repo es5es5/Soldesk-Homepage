@@ -26,7 +26,7 @@ create table SOLDESK_contents
 create table SOLDESK_contents_substance
 	(
 		scs_no number(10) not null,							-- 고유번호
-		scs_main_title varchar2(20 char) not null,			-- 과정명			SOLDESK_contents_title join
+		scs_main_title varchar2(50 char) not null,			-- 과정명			SOLDESK_contents_title join
 		scs_title varchar2(20 char) not null,				-- 소내용 제목
 		scs_info varchar2(4000) not null					-- 소내용 내용
 	);
