@@ -72,9 +72,8 @@
 					<c:forEach begin="1" end="10" step="1">
 						<!-- ${sc } arrayList 받을거임 -->
 						<tr>
-							<td>과정명
-								<button>수정</button> <!-- ${scTitle } -->
-							</td>
+							<td><a href="contents.jsp">과정명</a>
+								<button>수정</button> <!-- ${scTitle } --></td>
 							<td>900,000
 								<button>수정</button> <!-- ${scExpense } -->
 							</td>
