@@ -14,8 +14,8 @@ public class ContentsBBSController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		KDHLocalContentsDAO.getCdao().getAllContents(request, response);
-		KDHLocalContentsDAO.getCdao().contentsPaging(request, response);
+		ContentsDAO.getCdao().getAllContents(request, response);
+		ContentsDAO.getCdao().contentsPaging(request, response);
 		request.setAttribute("contentPage", "contents/contentsBBS.jsp");
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}

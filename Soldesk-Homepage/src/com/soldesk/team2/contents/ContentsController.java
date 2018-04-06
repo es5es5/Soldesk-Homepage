@@ -17,7 +17,7 @@ public class ContentsController extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		KDHLocalContentsDAO.getCdao().getDetailContents(request, response);
+		ContentsDAO.getCdao().getDetailContents(request, response);
 		request.setAttribute("contentPage", "contents/contents.jsp");
 		request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
 	}

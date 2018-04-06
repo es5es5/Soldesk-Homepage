@@ -143,18 +143,6 @@ public class ContentsDAO
 		request.setAttribute("contents", contents2);
 	}
 
-	public void substancePaging(HttpServletRequest request, HttpServletResponse response)
-	{
-		int pageCount = (int) Math.ceil(substance.size() / 50.0);
-		request.setAttribute("pageCount", pageCount);
-		ArrayList<ContentsSubstance> substance2 = new ArrayList<>();
-		for (int i = substance.size() - 1; i > (1 == pageCount ? -1 : substance.size() - 51); i--)
-		{
-			substance2.add(substance.get(i));
-		}
-		request.setAttribute("substance", substance2);
-	}
-
 	public void getAllContents(HttpServletRequest request, HttpServletResponse response)
 	{
 		Connection con = null;
@@ -197,92 +185,68 @@ public class ContentsDAO
 		try
 		{
 			con = DBManager.connect();
-			pstmt = con.prepareStatement("select * from SOLDESK_contents " + "where sc_no=?");
+			pstmt = con.prepareStatement("select * from SOLDESK_contents, SOLDESK_CONTENTS_SUBSTANCE, SOLDESK_TEACHER "
+					+ "where sc_no=? and sc_no = scs_contents_no and sc_teacher = st_no " + "order by scs_order");
 			pstmt.setString(1, request.getParameter("sc_no"));
 			rs = pstmt.executeQuery();
-			if (rs.next())
-			{
-				Contents c = new Contents(rs.getInt("sc_no"), rs.getInt("sc_category"), rs.getString("sc_title"),
-						rs.getInt("sc_teacher"), rs.getDate("sc_schedule_start"), rs.getDate("sc_schedule_finish"),
-						rs.getInt("sc_week"), rs.getInt("sc_capacity"), rs.getInt("sc_expense"));
-				SimpleDateFormat mm = new SimpleDateFormat("MM");
-				SimpleDateFormat hh = new SimpleDateFormat("HH");
-				int totalMonth = Integer.parseInt(mm.format(c.getSc_schedule_finish()))
-						- Integer.parseInt(mm.format(c.getSc_schedule_start()));
-				String totalWeeks = "";
-				for (int i = c.getSc_week(); i > 0; i = i >> 1)
-				{
-					if (i >= 64)
-					{
-						totalWeeks = "일" + totalWeeks;
-					} else if (i >= 32)
-					{
-						totalWeeks = "토" + totalWeeks;
-					} else if (i >= 16)
-					{
-						totalWeeks = "금" + totalWeeks;
-					} else if (i >= 8)
-					{
-						totalWeeks = "목" + totalWeeks;
-					} else if (i >= 4)
-					{
-						totalWeeks = "수" + totalWeeks;
-					} else if (i >= 2)
-					{
-						totalWeeks = "화" + totalWeeks;
-					} else
-					{
-						totalWeeks = "월" + totalWeeks;
-					}
-				}
-				request.setAttribute("c", c);
-				request.setAttribute("totalMonth", totalMonth);
-				request.setAttribute("totalHours",
-						totalMonth * 20 * (Integer.parseInt(hh.format(c.getSc_schedule_finish()))
-								- Integer.parseInt(hh.format(c.getSc_schedule_start())) - 1));
-				request.setAttribute("totalWeeks", totalWeeks);
-			} else
-			{
-				request.setAttribute("r", "아무 데이터 없음");
-			}
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-			request.setAttribute("r", "DB서버오류");
-		} finally
-		{
-			DBManager.close(con, pstmt, rs);
-		}
-	}
-
-	public void getAllSubstance(HttpServletRequest request, HttpServletResponse response)
-	{
-		// if문으로 scs_info가 이미지인지 텍스트인지 구분하여 보낼 계획
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try
-		{
-			con = DBManager.connect();
-			pstmt = con.prepareStatement("select * from SOLDESK_contents_substance " + "order by scs_order desc");
-			rs = pstmt.executeQuery();
+			// if문으로 scs_info가 이미지인지 텍스트인지 강사페이지인지 구분하여 보낼 계획
 			substance = new ArrayList<>();
-			while (rs.next())
+			for (int i = 0; rs.next(); i++)
 			{
+				if (i == 0)
+				{
+					Contents c = new Contents(rs.getInt("sc_no"), rs.getInt("sc_category"), rs.getString("sc_title"),
+							rs.getInt("sc_teacher"), rs.getDate("sc_schedule_start"), rs.getDate("sc_schedule_finish"),
+							rs.getInt("sc_week"), rs.getInt("sc_capacity"), rs.getInt("sc_expense"));
+					SimpleDateFormat mm = new SimpleDateFormat("MM");
+					SimpleDateFormat hh = new SimpleDateFormat("HH");
+					int totalMonth = Integer.parseInt(mm.format(c.getSc_schedule_finish()))
+							- Integer.parseInt(mm.format(c.getSc_schedule_start()));
+					String totalWeeks = "";
+					for (int j = c.getSc_week(); j > 0; j = j >> 1)
+					{
+						if (j >= 64)
+						{
+							totalWeeks = "일" + totalWeeks;
+						} else if (j >= 32)
+						{
+							totalWeeks = "토" + totalWeeks;
+						} else if (j >= 16)
+						{
+							totalWeeks = "금" + totalWeeks;
+						} else if (j >= 8)
+						{
+							totalWeeks = "목" + totalWeeks;
+						} else if (j >= 4)
+						{
+							totalWeeks = "수" + totalWeeks;
+						} else if (j >= 2)
+						{
+							totalWeeks = "화" + totalWeeks;
+						} else
+						{
+							totalWeeks = "월" + totalWeeks;
+						}
+					}
+					request.setAttribute("c", c);
+					request.setAttribute("totalMonth", totalMonth);
+					request.setAttribute("totalHours",
+							totalMonth * 20 * (Integer.parseInt(hh.format(c.getSc_schedule_finish()))
+									- Integer.parseInt(hh.format(c.getSc_schedule_start())) - 1));
+					request.setAttribute("totalWeeks", totalWeeks);
+				}
 				substance.add(new ContentsSubstance(rs.getInt("scs_no"), rs.getInt("scs_contents_no"),
 						rs.getInt("scs_order"), rs.getString("scs_title"), rs.getString("scs_info")));
 			}
 			if (substance.size() == 0)
 			{
-				request.setAttribute("r", "아무 데이터 없음");
 				substance.add(null);
 			}
+			request.setAttribute("substance", substance);
 		} catch (Exception e)
 		{
 			e.printStackTrace();
 			request.setAttribute("r", "DB서버오류");
-			substance = new ArrayList<>();
-			substance.add(null);
 		} finally
 		{
 			DBManager.close(con, pstmt, rs);
