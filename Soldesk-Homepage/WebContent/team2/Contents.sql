@@ -64,6 +64,15 @@ insert into SOLDESK_teacher values
         '- 숭실 대학교 정보과학 대학원 공학 석사',						-- 경력사항
         '- 직업 능력 개발 훈련 교사(서울 고용 노동청: 정보처리/사무자동화/멀티미디어)'-- 자격증
     );
+    
+insert into SOLDESK_teacher values
+    (
+        2,													-- 고유번호
+        '양기석',												-- 강사명			sc_teacher join
+        'http://www.soldesk.co.kr/images/pt!tcYKS.png',		-- 강사사진
+        '- (주) 한빛이엔아이 전임강사',								-- 경력사항
+        '- 직업능력개발 훈련교사(정보기술 개발, 정보기술 운영, 정보기술 관리)'	-- 자격증
+    );
 
 insert into SOLDESK_contents_substance values
 	(
@@ -83,6 +92,32 @@ insert into SOLDESK_contents_substance values
 		'- 웹 프로그래밍 개발자'									-- 소내용 내용
 	);
 	
+insert into SOLDESK_contents_substance values
+	(
+		3,													-- 고유번호
+		1,													-- 과정 고유번호		sc_no join
+		3,													-- 소내용 순서
+		'강사 프로필',											-- 소내용 제목
+		'[강사]'	-- 소내용 내용
+	);
+	
 select * from SOLDESK_CONTENTS;
 select * from SOLDESK_CONTENTS_SUBSTANCE;
 select * from SOLDESK_TEACHER;
+
+UPDATE SOLDESK_contents_substance 
+	SET 
+		scs_info = '[강사]' 
+	WHERE 
+		scs_no = 3;
+
+select * 
+	from 
+		SOLDESK_CONTENTS, 
+		SOLDESK_CONTENTS_SUBSTANCE, 
+		SOLDESK_TEACHER
+	where 
+		sc_no = scs_contents_no 
+		and 
+		sc_teacher = st_no
+	order by scs_order;

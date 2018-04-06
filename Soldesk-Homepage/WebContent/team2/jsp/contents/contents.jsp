@@ -71,50 +71,14 @@
 			<td>
 				<table border="solid">
 					<tr>
-						<td><c:if test="${1==1 }">
-								<h4>
-							</c:if> 과정소개 <c:if test="${1==1 }">
-								</h4>
-							</c:if></td>
-						<td><c:if test="${1!=1 }">
-								<h4>
-							</c:if> 수강후기 <c:if test="${1!=1 }">
-								</h4>
-							</c:if></td>
-					</tr>
-				</table>
-				<table border="solid">
-					<tr>
-						<td><c:choose>
-								<c:when test="${1==1 }">
-									<c:forEach var="s" items="${substance }">
-										<table border="solid">
-											<tr>
-												<td>
-													<h3>
-														${s.scs_title }
-														<button>수정</button>
-													</h3>
-												</td>
-											</tr>
-											<tr>
-												<td>${s.scs_info }
-													<button>수정</button>
-												</td>
-											</tr>
-										</table>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>수강후기(수강후기도 substance.jsp)</c:otherwise>
-							</c:choose></td>
-					</tr>
-					<tr>
-						<td>
-							<button>추가</button>
-						</td>
+						<td>과정소개</td>
+						<td><button>수강신청</button></td>
 					</tr>
 				</table>
 			</td>
+		</tr>
+		<tr>
+			<td><jsp:include page="${substancePage }"></jsp:include></td>
 		</tr>
 		<tr>
 			<td>
