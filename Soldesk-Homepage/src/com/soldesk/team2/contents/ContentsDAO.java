@@ -237,7 +237,6 @@ public class ContentsDAO
 				}
 				substance.add(new ContentsSubstance(rs.getInt("scs_no"), rs.getInt("scs_contents_no"),
 						rs.getInt("scs_order"), rs.getString("scs_title"), rs.getString("scs_info")));
-				System.out.println(substance.get(i).getScs_info());
 				if (substance.get(i).getScs_info().equals("[°­»ç]"))
 				{
 					substance.get(i).setScs_info(
