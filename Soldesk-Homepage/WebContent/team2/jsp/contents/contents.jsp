@@ -54,8 +54,8 @@
 							</h3>
 						</td>
 						<td>매 주 ${totalWeeks }, <fmt:formatDate
-								value="${c.sc_time_start }" pattern="kk:mm" /> ~ <fmt:formatDate
-								value="${c.sc_time_finish }" pattern="kk:mm" /></td>
+								value="${c.sc_schedule_start }" pattern="kk:mm" /> ~ <fmt:formatDate
+								value="${c.sc_schedule_finish }" pattern="kk:mm" /></td>
 						<td>
 							<h3>
 								수강정원
