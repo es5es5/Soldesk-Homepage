@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.soldesk.common.main.DBManager;
 import com.soldesk.common.main.MRManager;
+import com.soldesk.team2.teacher.Teacher;
 
 public class ContentsDAO
 {
@@ -228,6 +229,8 @@ public class ContentsDAO
 							totalWeeks = "월" + totalWeeks;
 						}
 					}
+					request.setAttribute("t", new Teacher(rs.getInt("st_no"), rs.getString("st_name"),
+							rs.getString("st_photo"), rs.getString("st_resume"), rs.getString("st_certificate")));
 					request.setAttribute("c", c);
 					request.setAttribute("totalMonth", totalMonth);
 					request.setAttribute("totalHours",
@@ -237,15 +240,6 @@ public class ContentsDAO
 				}
 				substance.add(new ContentsSubstance(rs.getInt("scs_no"), rs.getInt("scs_contents_no"),
 						rs.getInt("scs_order"), rs.getString("scs_title"), rs.getString("scs_info")));
-				if (substance.get(i).getScs_info().equals("[강사]"))
-				{
-					substance.get(i).setScs_info(
-							"<table border=\"solid\"><tr><td><table border=\"solid\"><tr><td><img alt=\"강사 사진\"src=\""
-									+ rs.getString("st_photo") + "\"></tr><tr><td><h3>" + rs.getString("st_name")
-									+ "</h3> 강사님</td></tr></table></td><td><table border=\"solid\"><tr><td><h3>교육경력사항</h3></td></tr><tr><td>"
-									+ rs.getString("st_resume") + "</td></tr><tr><td><h3>보유자격증</h3></td></tr><tr><td>"
-									+ rs.getString("st_certificate") + "</td></tr></table></td></tr></table>");
-				}
 			}
 			if (substance.size() == 0)
 			{

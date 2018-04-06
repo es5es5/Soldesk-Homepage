@@ -78,7 +78,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><jsp:include page="${substancePage }"></jsp:include></td>
+			<td><jsp:include page="substance.jsp"></jsp:include></td>
 		</tr>
 		<tr>
 			<td>
