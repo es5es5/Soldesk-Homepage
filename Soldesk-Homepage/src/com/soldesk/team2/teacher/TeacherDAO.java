@@ -3,9 +3,8 @@ package com.soldesk.team2.teacher;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.soldesk.common.main.DBManager;

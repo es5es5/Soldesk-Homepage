@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.soldesk.team3.home.DBManager;
+import com.soldesk.common.main.DBManager;
 
 public class BulletinDAO {
 	
