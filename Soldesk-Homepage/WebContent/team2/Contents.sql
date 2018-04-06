@@ -98,7 +98,16 @@ insert into SOLDESK_contents_substance values
 		1,													-- 과정 고유번호		sc_no join
 		3,													-- 소내용 순서
 		'강사 프로필',											-- 소내용 제목
-		'[강사]'	-- 소내용 내용
+		'[[[강사]]]'												-- 소내용 내용
+	);
+
+insert into SOLDESK_contents_substance values
+	(
+		4,													-- 고유번호
+		1,													-- 과정 고유번호		sc_no join
+		4,													-- 소내용 순서
+		'BigData의 개요',											-- 소내용 제목
+		'{{{http://www.soldesk.co.kr/images/img!Bigdata.png}}}'-- 소내용 내용
 	);
 	
 select * from SOLDESK_CONTENTS;
@@ -107,7 +116,7 @@ select * from SOLDESK_TEACHER;
 
 UPDATE SOLDESK_contents_substance 
 	SET 
-		scs_info = '[강사]' 
+		scs_info = '[[[강사]]]' 
 	WHERE 
 		scs_no = 3;
 

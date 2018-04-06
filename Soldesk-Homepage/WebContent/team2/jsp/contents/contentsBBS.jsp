@@ -35,11 +35,12 @@
 						<td>전체</td>
 						<c:forEach var="i" begin="1" end="3" step="1">
 							<!-- ${ss } arrayList 받을거임 -->
-							<td><c:if test="${i==1}">
-									<h4>
-								</c:if> 분류<!-- ${ssName } --> <c:if test="${i==1}">
-									</h4>
-								</c:if></td>
+							<td>
+								<h4>
+									분류
+									<!-- ${ssName } -->
+								</h4>
+							</td>
 						</c:forEach>
 					</tr>
 				</table>
@@ -71,8 +72,7 @@
 					</tr>
 					<c:forEach var="c" items="${contents }">
 						<tr>
-							<td><a
-								href="ContentsController?sc_no=${c.sc_no }">${c.sc_title }</a>
+							<td><a href="ContentsController?sc_no=${c.sc_no }">${c.sc_title }</a>
 								<button>수정</button></td>
 							<td>${sc_expense }
 								<button>수정</button>

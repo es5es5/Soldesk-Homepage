@@ -239,7 +239,8 @@ public class ContentsDAO
 					request.setAttribute("totalWeeks", totalWeeks);
 				}
 				substance.add(new ContentsSubstance(rs.getInt("scs_no"), rs.getInt("scs_contents_no"),
-						rs.getInt("scs_order"), rs.getString("scs_title"), rs.getString("scs_info")));
+						rs.getInt("scs_order"), rs.getString("scs_title"),
+						rs.getString("scs_info").replace("{{{", "<img alt=\"³»¿ë\" src=\"").replace("}}}", "\">")));
 			}
 			if (substance.size() == 0)
 			{

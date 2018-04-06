@@ -19,12 +19,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td><c:if test="${s.scs_info!='[강사]' }">
-								${s.scs_info }
-				</c:if> <c:if test="${s.scs_info=='[강사]' }">
-						<jsp:include page="teacher.jsp"></jsp:include>
-					</c:if>
-
+				<td><c:choose>
+						<c:when test="${s.scs_info=='[[[강사]]]' }">
+							<jsp:include page="teacher.jsp"></jsp:include>
+						</c:when>
+						<c:otherwise>
+								${s.scs_info }						
+						</c:otherwise>
+					</c:choose>
 					<button>수정</button></td>
 			</tr>
 		</c:forEach>
