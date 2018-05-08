@@ -146,35 +146,13 @@ public class ContentsDAO
 
 	public void getAllContents(HttpServletRequest request, HttpServletResponse response)
 	{
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		try
 		{
-			con = DBManager.connect();
-			pstmt = con.prepareStatement("select * from SOLDESK_contents " + "order by sc_schedule_START");
-			rs = pstmt.executeQuery();
-			contents = new ArrayList<>();
-			while (rs.next())
-			{
-				contents.add(new Contents(rs.getInt("sc_no"), rs.getInt("sc_category"), rs.getString("sc_title"),
-						rs.getInt("sc_teacher"), rs.getDate("sc_schedule_start"), rs.getDate("sc_schedule_finish"),
-						rs.getInt("sc_week"), rs.getInt("sc_capacity"), rs.getInt("sc_expense")));
-			}
-			if (contents.size() == 0)
-			{
-				request.setAttribute("r", "아무 데이터 없음");
-				contents.add(null);
-			}
+			request.setAttribute("contents", DBManager.newConnect().selectList("team2.getAll"));
 		} catch (Exception e)
 		{
-			e.printStackTrace();
-			request.setAttribute("r", "DB서버오류");
 			contents = new ArrayList<>();
 			contents.add(null);
-		} finally
-		{
-			DBManager.close(con, pstmt, rs);
 		}
 	}
 
@@ -204,29 +182,38 @@ public class ContentsDAO
 					int totalMonth = Integer.parseInt(mm.format(c.getSc_schedule_finish()))
 							- Integer.parseInt(mm.format(c.getSc_schedule_start()));
 					String totalWeeks = "";
-					for (int j = c.getSc_week(); j > 0; j = j >> 1)
+					int k = c.getSc_week() + 1;
+					for (int j = 64; j > 0; j = j >> 1)
 					{
-						if (j >= 64)
+						if (k - j > 0)
 						{
-							totalWeeks = "일" + totalWeeks;
-						} else if (j >= 32)
-						{
-							totalWeeks = "토" + totalWeeks;
-						} else if (j >= 16)
-						{
-							totalWeeks = "금" + totalWeeks;
-						} else if (j >= 8)
-						{
-							totalWeeks = "목" + totalWeeks;
-						} else if (j >= 4)
-						{
-							totalWeeks = "수" + totalWeeks;
-						} else if (j >= 2)
-						{
-							totalWeeks = "화" + totalWeeks;
-						} else
-						{
-							totalWeeks = "월" + totalWeeks;
+							switch (j)
+							{
+							case 64:
+								totalWeeks = "일" + totalWeeks;
+								break;
+							case 32:
+								totalWeeks = "토" + totalWeeks;
+								break;
+							case 16:
+								totalWeeks = "금" + totalWeeks;
+								break;
+							case 8:
+								totalWeeks = "목" + totalWeeks;
+								break;
+							case 4:
+								totalWeeks = "수" + totalWeeks;
+								break;
+							case 2:
+								totalWeeks = "화" + totalWeeks;
+								break;
+							case 1:
+								totalWeeks = "월" + totalWeeks;
+								break;
+							default:
+								break;
+							}
+							k -= j;
 						}
 					}
 					request.setAttribute("t", new Teacher(rs.getInt("st_no"), rs.getString("st_name"),
@@ -256,4 +243,5 @@ public class ContentsDAO
 			DBManager.close(con, pstmt, rs);
 		}
 	}
+
 }

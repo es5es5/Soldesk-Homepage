@@ -74,7 +74,7 @@
 						<tr>
 							<td><a href="ContentsController?sc_no=${c.sc_no }">${c.sc_title }</a>
 								<button>수정</button></td>
-							<td>${sc_expense }
+							<td>${c.sc_expense }
 								<button>수정</button>
 							</td>
 							<td>

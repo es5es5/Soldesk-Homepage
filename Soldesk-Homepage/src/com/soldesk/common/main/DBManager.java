@@ -16,6 +16,7 @@ public class DBManager {
 	// 미리 연결을 몇개 만들어 놓고
 	// DB서버와 연결 해달라고 하면 만들어 놓은 연결을 주는 시스템
 	// ConnectionPool
+	
 	public static Connection connect() throws NamingException, SQLException {
 
 		// context.xml
