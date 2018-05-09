@@ -1,13 +1,23 @@
 package com.soldesk.team2.contents;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.jasper.compiler.SmapUtil;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.soldesk.common.main.DBManager;
@@ -181,7 +191,7 @@ public class ContentsDAO
 					SimpleDateFormat hh = new SimpleDateFormat("HH");
 					int totalMonth = Integer.parseInt(mm.format(c.getSc_schedule_finish()))
 							- Integer.parseInt(mm.format(c.getSc_schedule_start()));
-					String totalWeeks = "";
+					ArrayList<String> totalWeeks = new ArrayList<>();
 					int k = c.getSc_week() + 1;
 					for (int j = 64; j > 0; j = j >> 1)
 					{
@@ -190,25 +200,25 @@ public class ContentsDAO
 							switch (j)
 							{
 							case 64:
-								totalWeeks = "일" + totalWeeks;
+								totalWeeks.add("일");
 								break;
 							case 32:
-								totalWeeks = "토" + totalWeeks;
+								totalWeeks.add("토");
 								break;
 							case 16:
-								totalWeeks = "금" + totalWeeks;
+								totalWeeks.add("금");
 								break;
 							case 8:
-								totalWeeks = "목" + totalWeeks;
+								totalWeeks.add("목");
 								break;
 							case 4:
-								totalWeeks = "수" + totalWeeks;
+								totalWeeks.add("수");
 								break;
 							case 2:
-								totalWeeks = "화" + totalWeeks;
+								totalWeeks.add("화");
 								break;
 							case 1:
-								totalWeeks = "월" + totalWeeks;
+								totalWeeks.add("월");
 								break;
 							default:
 								break;
@@ -244,4 +254,54 @@ public class ContentsDAO
 		}
 	}
 
+	public ArrayList<Date> holyDay(Date start, Date finish)
+	{
+		HttpsURLConnection huc;
+		JSONParser jp = new JSONParser();
+		JSONArray ja;
+		JSONObject holyDay;
+		Calendar startCal = Calendar.getInstance();
+		Calendar finishCal = Calendar.getInstance();
+		startCal.setTime(start);
+		finishCal.setTime(finish);
+		int fY = finishCal.get(Calendar.YEAR);
+		StringBuffer sb;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		ArrayList<Date> holyDays = new ArrayList<>();
+		try
+		{
+			for (int i = startCal.get(Calendar.YEAR); i <= fY; i++)
+			{
+				huc = (HttpsURLConnection) new URL(
+						String.format("https://apis.sktelecom.com/v1/eventday/days?month=&year=%d&type=h,i&day=", i))
+								.openConnection();
+				huc.addRequestProperty("referer",
+						"https://developers.sktelecom.com/projects/project_31848010/services/EventDay/apiGuide/");
+				huc.addRequestProperty("Accept", "application/json");
+				huc.addRequestProperty("TDCProjectKey", "59ee7384-a5a8-4fef-b265-db673e6ac086");
+				ja = (JSONArray) ((JSONObject) jp.parse((MyConverter.convertToString(huc.getInputStream()))))
+						.get("results");
+				for (int j = 0; ja != null && j < ja.size(); j++)
+				{
+					holyDay = (JSONObject) ja.get(j);
+					sb = new StringBuffer();
+					sb.append(holyDay.get("year"));
+					sb.append(holyDay.get("month"));
+					sb.append(holyDay.get("day"));
+					holyDays.add(sdf.parse(sb.toString()));
+				}
+			}
+		} catch (Exception e)
+		{
+		}
+		for (int i = 0; i < holyDays.size(); i++)
+		{
+			if (holyDays.get(i).before(start) || holyDays.get(i).after(finish))
+			{
+				holyDays.remove(i);
+				i--;
+			}
+		}
+		return holyDays;
+	}
 }
