@@ -17,15 +17,18 @@
 }
 </style>
 <script type="text/javascript">
-	$(function() {
-		$("button.modSubS").click(function(e) {
+	$(function()
+	{
+		$("button.modSubS").click(function(e)
+		{
 			var id = e.target.getAttribute('id');
 			$("#" + id).css("display", "none");
 			$("#" + id + "ST").css("display", "none");
 			$("#" + (id * 1 + 100)).css("display", "inline");
 			$("#" + (id * 1 + 100) + "ST").css("display", "inline");
 		});
-		$("button.modSubE").click(function(e) {
+		$("button.modSubE").click(function(e)
+		{
 			var id = e.target.getAttribute('id');
 			$("#" + id).css("display", "none");
 			$("#" + id + "ST").css("display", "none");
@@ -42,9 +45,8 @@
 				<td>
 					<h3>
 						<span id="${s.scs_order}ST" class="subMain"> ${s.scs_title }
-						</span> <span id="${s.scs_order+100}ST" class="modSubE"> <input
+						</span><input id="${s.scs_order+100}ST" class="modSubE"
 							value="${s.scs_title }">
-						</span>
 						<button id="${s.scs_order }" class="modSubS">수정</button>
 						<button id="${s.scs_order+100}" class="modSubE">완료</button>
 					</h3>

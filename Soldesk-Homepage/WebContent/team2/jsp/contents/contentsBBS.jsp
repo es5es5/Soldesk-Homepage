@@ -6,26 +6,92 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>CONTENTS_BBS_PAGE</title>
-<script src="js/jquery-1.12.4.min.js"></script>
-<script src="js/jquery.bxslider.js"></script>
-<script src="js/setImgSlider.js"></script>
-<script src="js/setMenu.js"></script>
-<script src="js/mainMenu.js"></script>
-<script type="text/javascript">
-	$(function() {
-		setMainMenuAnimation();
-		setMainSlider();
-		setSiteSubMenu2();
+<style type="text/css">
+.modS, .modE, .mod, .modSubS, .modSubE {
+	display: none;
+}
+</style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+	$(function()
+	{
+		$("#mod").click(
+				function()
+				{
+					if ($("#mod").attr("value") == "off")
+					{
+						$(".modS, .mod, .modSubS").css("display", "inline");
+						$("#mod").attr("value", "on");
+					} else
+					{
+						$(".modS, .modE, .mod, .modSubS, .modSubE").css(
+								"display", "none");
+						$(".main, .subMain").css("display", "inline");
+						$("#mod").attr("value", "off");
+					}
+				});
+		$("#modBigTitleS").click(function()
+		{
+			$("#modBigTitleS").css("display", "none");
+			$("#bigTitle").css("display", "none");
+			$("#modBigTitle").css("display", "inline");
+			$("#modBigTitleE").css("display", "inline");
+		});
+		$("#modBigTitleE").click(function()
+		{
+			$("#modBigTitleE").css("display", "none");
+			$("#modBigTitle").css("display", "none");
+			$("#bigTitle").css("display", "inline");
+			$("#modBigTitleS").css("display", "inline");
+		});
+		$("#modMidleTitleS").click(function()
+		{
+			$("#modMidleTitleS").css("display", "none");
+			$("#midleTitle").css("display", "none");
+			$("#modMidleTitle").css("display", "inline");
+			$("#modMidleTitleE").css("display", "inline");
+		});
+		$("#modMidleTitleE").click(function()
+		{
+			$("#modMidleTitleE").css("display", "none");
+			$("#modMidleTitle").css("display", "none");
+			$("#midleTitle").css("display", "inline");
+			$("#modMidleTitleS").css("display", "inline");
+		});
+		$("button.modSubS").click(function(e)
+		{
+			var id = e.target.getAttribute('id');
+			$("#" + id).css("display", "none");
+			$("#" + id + "ST").css("display", "none");
+			$("#" + (id * 1 + 10000)).css("display", "inline");
+			$("#" + (id * 1 + 10000) + "ST").css("display", "inline");
+		});
+		$("button.modSubE").click(function(e)
+		{
+			var id = e.target.getAttribute('id');
+			$("#" + id).css("display", "none");
+			$("#" + id + "ST").css("display", "none");
+			$("#" + (id * 1 - 10000)).css("display", "inline");
+			$("#" + (id * 1 - 10000) + "ST").css("display", "inline");
+		});
 	});
 </script>
 </head>
 <body>
 	<table border="solid">
 		<tr>
+			<td>
+				<button id="mod" value="off">관리자모드 on/off</button>
+			</td>
+		</tr>
+		<tr>
 			<td><h1>
-					대분류명
+					<span id="bigTitle" class="main"> 대분류명 </span> <input
+						id="modBigTitle" class="modE" value="대분류명">
 					<!-- ${smName } -->
-					<button>수정</button>
+					<button id="modBigTitleS" class="modS">수정</button>
+					<button id="modBigTitleE" class="modE">완료</button>
 				</h1></td>
 		</tr>
 		<tr>
@@ -50,9 +116,11 @@
 			<td><h3>
 					대분류
 					<!-- ${smName } -->
-					> 중분류
+					> <span id="midleTitle" class="main">중분류</span><input
+						id="modMidleTitle" class="modE" value="중분류">
 					<!-- ${ssName } -->
-					<button>수정</button>
+					<button id="modMidleTitleS" class="modS">수정</button>
+					<button id="modMidleTitleE" class="modE">완료</button>
 					(현재 선택된 분류)
 				</h3></td>
 		</tr>
@@ -72,18 +140,24 @@
 					</tr>
 					<c:forEach var="c" items="${contents }">
 						<tr>
-							<td><a href="ContentsController?sc_no=${c.sc_no }">${c.sc_title }</a>
-								<button>수정</button></td>
-							<td>${c.sc_expense }
-								<button>수정</button>
-							</td>
+							<td><span id="${c.sc_no }ST" class="main"> <a
+									href="ContentsController?sc_no=${c.sc_no }">${c.sc_title }</a>
+							</span> <input id="${c.sc_no+10000 }ST" class="modE"
+								value="${c.sc_title }">
+								<button id="${c.sc_no }" class="modSubS">수정</button>
+								<button id="${c.sc_no+10000 }" class="modSubE">완료</button></td>
+							<td><span id="${c.sc_no+20000 }ST" class="main">
+									${c.sc_expense } </span> <input id="${c.sc_no+30000 }ST" class="modE"
+								value="${c.sc_expense }">
+								<button id="${c.sc_no+20000 }" class="modSubS">수정</button>
+								<button id="${c.sc_no+30000 }" class="modSubE">완료</button></td>
 							<td>
 								<button>수강신청</button>
 							</td>
 						</tr>
 					</c:forEach>
 					<tr>
-						<td colspan="3"><button>추가</button></td>
+						<td colspan="3"><button class="modS">추가</button></td>
 					</tr>
 					<tr>
 						<td colspan="3"><c:forEach var="p" begin="1"

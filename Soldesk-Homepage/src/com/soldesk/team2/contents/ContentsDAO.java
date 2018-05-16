@@ -1,6 +1,6 @@
 package com.soldesk.team2.contents;
 
-import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,15 +9,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.jasper.compiler.SmapUtil;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.soldesk.common.main.DBManager;
@@ -180,64 +178,24 @@ public class ContentsDAO
 			rs = pstmt.executeQuery();
 			// if문으로 scs_info가 이미지인지 텍스트인지 강사페이지인지 구분하여 보낼 계획
 			substance = new ArrayList<>();
+			Contents c;
+			ArrayList<Date> holyDays = new ArrayList<>();
+			ArrayList<String> totalWeeks = new ArrayList<>();
 			for (int i = 0; rs.next(); i++)
 			{
 				if (i == 0)
 				{
-					Contents c = new Contents(rs.getInt("sc_no"), rs.getInt("sc_category"), rs.getString("sc_title"),
-							rs.getInt("sc_teacher"), rs.getDate("sc_schedule_start"), rs.getDate("sc_schedule_finish"),
-							rs.getInt("sc_week"), rs.getInt("sc_capacity"), rs.getInt("sc_expense"));
-					SimpleDateFormat mm = new SimpleDateFormat("MM");
-					SimpleDateFormat hh = new SimpleDateFormat("HH");
-					int totalMonth = Integer.parseInt(mm.format(c.getSc_schedule_finish()))
-							- Integer.parseInt(mm.format(c.getSc_schedule_start()));
-					ArrayList<String> totalWeeks = new ArrayList<>();
-					int k = c.getSc_week() + 1;
-					for (int j = 64; j > 0; j = j >> 1)
-					{
-						if (k - j > 0)
-						{
-							switch (j)
-							{
-							case 64:
-								totalWeeks.add("일");
-								break;
-							case 32:
-								totalWeeks.add("토");
-								break;
-							case 16:
-								totalWeeks.add("금");
-								break;
-							case 8:
-								totalWeeks.add("목");
-								break;
-							case 4:
-								totalWeeks.add("수");
-								break;
-							case 2:
-								totalWeeks.add("화");
-								break;
-							case 1:
-								totalWeeks.add("월");
-								break;
-							default:
-								break;
-							}
-							k -= j;
-						}
-					}
-					request.setAttribute("t", new Teacher(rs.getInt("st_no"), rs.getString("st_name"),
-							rs.getString("st_photo"), rs.getString("st_resume"), rs.getString("st_certificate")));
+					c = contents(request, con, pstmt, rs);
+					totalWeeks = totalWeeks(c);
+					holyDays = holyDay(c, totalWeeks);
+					request.setAttribute("t", teacher(request, con, pstmt, rs));
 					request.setAttribute("c", c);
-					request.setAttribute("totalMonth", totalMonth);
-					request.setAttribute("totalHours",
-							totalMonth * 20 * (Integer.parseInt(hh.format(c.getSc_schedule_finish()))
-									- Integer.parseInt(hh.format(c.getSc_schedule_start())) - 1));
+					request.setAttribute("totalMonth", totalMonth(c));
+					request.setAttribute("totalHours", totalHours(c, holyDays.size()));
 					request.setAttribute("totalWeeks", totalWeeks);
+					request.setAttribute("holyDays", holyDayBuffer(holyDays));
 				}
-				substance.add(new ContentsSubstance(rs.getInt("scs_no"), rs.getInt("scs_contents_no"),
-						rs.getInt("scs_order"), rs.getString("scs_title"),
-						rs.getString("scs_info").replace("{{{", "<img alt=\"내용\" src=\"").replace("}}}", "\">")));
+				substance.add(substance(request, con, pstmt, rs));
 			}
 			if (substance.size() == 0)
 			{
@@ -254,41 +212,176 @@ public class ContentsDAO
 		}
 	}
 
-	public ArrayList<Date> holyDay(Date start, Date finish)
+	public Teacher teacher(HttpServletRequest request, Connection con, PreparedStatement pstmt, ResultSet rs)
+			throws Exception
 	{
-		HttpsURLConnection huc;
-		JSONParser jp = new JSONParser();
-		JSONArray ja;
-		JSONObject holyDay;
+		return new Teacher(rs.getInt("st_no"), rs.getString("st_name"), rs.getString("st_photo"),
+				rs.getString("st_resume"), rs.getString("st_certificate"));
+	}
+
+	public Contents contents(HttpServletRequest request, Connection con, PreparedStatement pstmt, ResultSet rs)
+			throws Exception
+	{
+		return new Contents(rs.getInt("sc_no"), rs.getInt("sc_category"), rs.getString("sc_title"),
+				rs.getInt("sc_teacher"), rs.getDate("sc_schedule_start"), rs.getDate("sc_schedule_finish"),
+				rs.getString("sc_holyday"), rs.getInt("sc_week"), rs.getInt("sc_capacity"), rs.getInt("sc_expense"));
+	}
+
+	public ContentsSubstance substance(HttpServletRequest request, Connection con, PreparedStatement pstmt,
+			ResultSet rs) throws Exception
+	{
+		return new ContentsSubstance(rs.getInt("scs_no"), rs.getInt("scs_contents_no"), rs.getInt("scs_order"),
+				rs.getString("scs_title"),
+				rs.getString("scs_info").replace("{{{", "<img alt=\"내용\" src=\"").replace("}}}", "\">"));
+	}
+
+	public int oneDayHours(Contents c)
+	{
 		Calendar startCal = Calendar.getInstance();
 		Calendar finishCal = Calendar.getInstance();
-		startCal.setTime(start);
-		finishCal.setTime(finish);
+		startCal.setTime(c.getSc_schedule_start());
+		finishCal.setTime(c.getSc_schedule_finish());
+		return finishCal.get(Calendar.HOUR_OF_DAY) - startCal.get(Calendar.HOUR_OF_DAY) - 1;
+	}
+
+	public int totalHours(Contents c, int holyDays)
+	{
+		return (totalDays(c) - holyDays) * oneDayHours(c);
+	}
+
+	public int totalDays(Contents c)
+	{
+		int totalDays;
+		Calendar cal = Calendar.getInstance();
+		Calendar finishCal = Calendar.getInstance();
+		finishCal.setTime(c.getSc_schedule_finish());
+		for (totalDays = 0, cal
+				.setTime(c.getSc_schedule_start()); !((finishCal.get(Calendar.DATE) == cal.get(Calendar.DATE))
+						&& (finishCal.get(Calendar.MONTH) == cal.get(Calendar.MONTH))
+						&& (finishCal.get(Calendar.YEAR) == cal.get(Calendar.YEAR))); totalDays++)
+		{
+			cal.add(Calendar.DATE, 1);
+		}
+		return totalDays;
+
+	}
+
+	public int totalMonth(Contents c)
+	{
+		int totalMonth;
+		Calendar cal = Calendar.getInstance();
+		Calendar finishCal = Calendar.getInstance();
+		finishCal.setTime(c.getSc_schedule_finish());
+		for (totalMonth = 0, cal
+				.setTime(c.getSc_schedule_start()); !((finishCal.get(Calendar.MONTH) == cal.get(Calendar.MONTH))
+						&& (finishCal.get(Calendar.YEAR) == cal.get(Calendar.YEAR))); totalMonth++)
+		{
+			cal.add(Calendar.MONTH, 1);
+		}
+		return totalMonth;
+	}
+
+	public ArrayList<String> totalWeeks(Contents c)
+	{
+		ArrayList<String> totlaWeeks = new ArrayList<>();
+		int weeks = c.getSc_week() + 1;
+		for (int j = 64; j > 0; j = j >> 1)
+		{
+			if (weeks - j > 0)
+			{
+				switch (j)
+				{
+				case 64:
+					totlaWeeks.add("월");
+					break;
+				case 32:
+					totlaWeeks.add("화");
+					break;
+				case 16:
+					totlaWeeks.add("수");
+					break;
+				case 8:
+					totlaWeeks.add("목");
+					break;
+				case 4:
+					totlaWeeks.add("금");
+					break;
+				case 2:
+					totlaWeeks.add("토");
+					break;
+				case 1:
+					totlaWeeks.add("일");
+					break;
+				default:
+					break;
+				}
+				weeks -= j;
+			}
+		}
+		return totlaWeeks;
+	}
+
+	public ArrayList<Date> holyDay(Contents c, ArrayList<String> totalWeeks)
+	{
+		Calendar startCal = Calendar.getInstance();
+		Calendar finishCal = Calendar.getInstance();
+		startCal.setTime(c.getSc_schedule_start());
+		finishCal.setTime(c.getSc_schedule_finish());
+		HttpURLConnection huc;
+		int fM = finishCal.get(Calendar.MONTH);
 		int fY = finishCal.get(Calendar.YEAR);
-		StringBuffer sb;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		ArrayList<Date> holyDays = new ArrayList<>();
+		Date d = new Date();
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat week = new SimpleDateFormat("E", Locale.KOREAN);
+		String key = "3g256y1lTkLGkMNLH5ou4bg7qbxZqTJdRNELoJAM1mn9RyTFmot0Js5mK0aBNv3nnKGh%2FmLwDYx8Gvx6IqEK4w%3D%3D";
+		XmlPullParser xpp;
+		String tName = null;
+		String selectHolyDay = c.getSc_holyday();
+		for (cal.setTime(startCal.getTime()); !((finishCal.get(Calendar.DATE) == cal.get(Calendar.DATE))
+				&& (fM == cal.get(Calendar.MONTH)) && (fY == cal.get(Calendar.YEAR))); cal.add(Calendar.DATE, 1))
+		{
+			d = cal.getTime();
+			if (!totalWeeks.contains(week.format(d)) && !selectHolyDay.contains(sdf.format(d)))
+			{
+				holyDays.add(d);
+			}
+		}
 		try
 		{
-			for (int i = startCal.get(Calendar.YEAR); i <= fY; i++)
+			for (String string : selectHolyDay.split(","))
 			{
-				huc = (HttpsURLConnection) new URL(
-						String.format("https://apis.sktelecom.com/v1/eventday/days?month=&year=%d&type=h,i&day=", i))
-								.openConnection();
-				huc.addRequestProperty("referer",
-						"https://developers.sktelecom.com/projects/project_31848010/services/EventDay/apiGuide/");
-				huc.addRequestProperty("Accept", "application/json");
-				huc.addRequestProperty("TDCProjectKey", "59ee7384-a5a8-4fef-b265-db673e6ac086");
-				ja = (JSONArray) ((JSONObject) jp.parse((MyConverter.convertToString(huc.getInputStream()))))
-						.get("results");
-				for (int j = 0; ja != null && j < ja.size(); j++)
+				holyDays.add(sdf.parse(string));
+			}
+			cal.setTime(startCal.getTime());
+			for (cal.setTime(
+					startCal.getTime()); !((fM == cal.get(Calendar.MONTH)) && (fY == cal.get(Calendar.YEAR))); cal
+							.add(Calendar.MONTH, 1))
+			{
+				huc = (HttpURLConnection) new URL(String.format(
+						"http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?solYear=%d&solMonth=%02d&ServiceKey=",
+						cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)) + key).openConnection();
+
+				xpp = XmlPullParserFactory.newInstance().newPullParser();
+				xpp.setInput(huc.getInputStream(), "utf-8");
+
+				for (int type = xpp.getEventType(); type != XmlPullParser.END_DOCUMENT; type = xpp.next())
 				{
-					holyDay = (JSONObject) ja.get(j);
-					sb = new StringBuffer();
-					sb.append(holyDay.get("year"));
-					sb.append(holyDay.get("month"));
-					sb.append(holyDay.get("day"));
-					holyDays.add(sdf.parse(sb.toString()));
+					if (type == XmlPullParser.START_TAG)
+					{
+						tName = xpp.getName();
+					} else if (type == XmlPullParser.TEXT)
+					{
+						if (tName.equals("locdate"))
+						{
+							d = sdf.parse(xpp.getText());
+							if (totalWeeks.contains(week.format(d)) && !selectHolyDay.contains(sdf.format(d)))
+							{
+								holyDays.add(d);
+							}
+						}
+					}
 				}
 			}
 		} catch (Exception e)
@@ -296,12 +389,27 @@ public class ContentsDAO
 		}
 		for (int i = 0; i < holyDays.size(); i++)
 		{
-			if (holyDays.get(i).before(start) || holyDays.get(i).after(finish))
+			if (holyDays.get(i).before(startCal.getTime()) || holyDays.get(i).after(finishCal.getTime()))
 			{
 				holyDays.remove(i);
 				i--;
 			}
 		}
 		return holyDays;
+	}
+
+	public String holyDayBuffer(ArrayList<Date> holyDays)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < holyDays.size(); i++)
+		{
+			sb.append(sdf.format(holyDays.get(i)));
+			if (i != holyDays.size())
+			{
+				sb.append(",");
+			}
+		}
+		return sb.toString();
 	}
 }

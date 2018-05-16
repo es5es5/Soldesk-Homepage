@@ -8,6 +8,8 @@ create table SOLDESK_contents
         sc_schedule_FINISH date not null,					-- 교육일정(끝)
         -- 교육기간은 종료일정에서 시작일정을 뺀 값을 넣음.
         
+        sc_holyday varchar2(4000) not null,					-- 휴일
+        
         sc_week number(3)not null,							-- 교육시간(요일)
         -- 덧샘뺄샘을 이용해서 7개 요일을 자유자제로 선택해서 고를 수 있게끔 설정
 			-- 다 더해진 값이 저장됨.
@@ -20,6 +22,8 @@ create table SOLDESK_contents
         
         sc_expense number(10) not null						-- 교육비
     );
+    
+    drop table SOLDESK_contents;
     
 create table SOLDESK_contents_substance
 	(
@@ -51,11 +55,25 @@ insert into SOLDESK_contents values
         1,													-- 강사고유번호 		st_no join
     	to_date('2018.04.24(09:30)','yyyy.mm.dd(hh24:mi)'),	-- 교육일정(시작)
     	to_date('2018.10.26(18:30)','yyyy.mm.dd(hh24:mi)'),	-- 교육일정(끝)
-        31,--1/2/4/8/16/32/64								-- 교육시간(요일)
+        '20180721,20180630',							-- 휴일
+    	124,--1/2/4/8/16/32/64								-- 교육시간(요일)
         30,													-- 수강정원
         0													-- 교육비
 	);
     
+insert into SOLDESK_contents values
+	(
+		2,													-- 고유번호		scs_contents_no join
+        1,													-- 분류번호		ss join
+        '빅데이터 기반 머신러닝 개발자 과정',							-- 과정명
+        2,													-- 강사고유번호 		st_no join
+    	to_date('2018.02.12(09:30)','yyyy.mm.dd(hh24:mi)'),	-- 교육일정(시작)
+    	to_date('2018.08.20(18:30)','yyyy.mm.dd(hh24:mi)'),	-- 교육일정(끝)
+        '20180721,20180630',								-- 휴일
+        124,--1/2/4/8/16/32/64								-- 교육시간(요일)
+        30,													-- 수강정원
+        0													-- 교육비
+	);
 insert into SOLDESK_teacher values
     (
         1,													-- 고유번호
@@ -110,15 +128,50 @@ insert into SOLDESK_contents_substance values
 		'{{{http://www.soldesk.co.kr/images/img!Bigdata.png}}}'-- 소내용 내용
 	);
 	
+
+insert into SOLDESK_contents_substance values
+	(
+		5,													-- 고유번호
+		2,													-- 과정 고유번호		sc_no join
+		1,													-- 소내용 순서
+		'훈련목표',											-- 소내용 제목
+		'- NCS 기반 현장실무 위주의 교육으로, 빅데이터 시장에 필요한 어플리케이션구현, 빅데이터 수집 과 분석용 데이터 탐색, 빅데이터 저장, 머신러닝기반 데이터 분석 능력 기술 등을 실습하고, 조별 프로젝트 등을 통해 산업체에서 필요한 실무 능력을 함양, 관련 업체에 취업한다.'-- 소내용 내용
+	);
+
+insert into SOLDESK_contents_substance values
+	(
+		6,													-- 고유번호
+		2,													-- 과정 고유번호		sc_no join
+		2,													-- 소내용 순서
+		'진출분야',											-- 소내용 제목
+		'- 웹 프로그래밍 개발자'									-- 소내용 내용
+	);
+	
+insert into SOLDESK_contents_substance values
+	(
+		7,													-- 고유번호
+		2,													-- 과정 고유번호		sc_no join
+		3,													-- 소내용 순서
+		'강사 프로필',											-- 소내용 제목
+		'[[[강사]]]'												-- 소내용 내용
+	);
+
+insert into SOLDESK_contents_substance values
+	(
+		8,													-- 고유번호
+		2,													-- 과정 고유번호		sc_no join
+		4,													-- 소내용 순서
+		'BigData의 개요',											-- 소내용 제목
+		'{{{http://www.soldesk.co.kr/images/img!Bigdata.png}}}'-- 소내용 내용
+	);
+	
 select * from SOLDESK_CONTENTS;
 select * from SOLDESK_CONTENTS_SUBSTANCE;
 select * from SOLDESK_TEACHER;
 
-UPDATE SOLDESK_contents_substance 
+UPDATE SOLDESK_contents 
 	SET 
-		scs_info = '[[[강사]]]' 
-	WHERE 
-		scs_no = 3;
+		sc_week = 124;
 
 select * 
 	from 
